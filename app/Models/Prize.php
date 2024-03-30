@@ -12,10 +12,19 @@ class Prize extends Model
     protected $guarded = ['id'];
 
 
-
-
-    public  static function nextPrize()
+    public static function nextPrize()
     {
-        // TODO: Implement nextPrize() logic here.
+        // Generate a random number between 0 and 1
+        $randomNumber = mt_rand() / mt_getrandmax();
+        $currentProbability = 0;
+        $prizes = self::all();
+
+        foreach ($prizes as $prize) {
+            $currentProbability += $prize->probability / 100;
+            if ($randomNumber <= $currentProbability) {
+                $prize->increment('winner_count');
+                break;
+            }
+        }
     }
 }

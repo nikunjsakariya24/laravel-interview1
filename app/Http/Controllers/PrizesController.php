@@ -98,8 +98,6 @@ class PrizesController extends Controller
 
     public function simulate(Request $request)
     {
-
-
         for ($i = 0; $i < $request->number_of_prizes ?? 10; $i++) {
             Prize::nextPrize();
         }
@@ -110,6 +108,8 @@ class PrizesController extends Controller
     public function reset()
     {
         // TODO : Write logic here
+        Prize::query()->update(['winner_count' => 0]);
+
         return to_route('prizes.index');
     }
 }

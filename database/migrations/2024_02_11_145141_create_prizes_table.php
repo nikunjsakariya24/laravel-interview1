@@ -16,7 +16,8 @@ class CreatePrizesTable extends Migration
         Schema::create('prizes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('probability',10,2)->default(0);
+            $table->decimal('probability', 10, 2)->default(0);
+            $table->integer('winner_count')->default(0);
             $table->timestamps();
         });
     }
